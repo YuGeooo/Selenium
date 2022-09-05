@@ -13,6 +13,7 @@ def number_of_Group_members(driver):
         )
         #driver.refresh()
         num = driver.find_element(By.XPATH,"//*[@id='centerMain']/div[1]/div/div/span[3]").text
+        num = int(num[:-1])
         return num
     except:
         return 'timeout'
@@ -24,6 +25,7 @@ def number_of_Topics(driver):
         )
         #driver.refresh()
         num = driver.find_element(By.XPATH,"//*[@id='centerMain']/div[1]/div/div/span[1]").text
+        num = int(num[:-2])
         return num
     except:
         return 'timeout'

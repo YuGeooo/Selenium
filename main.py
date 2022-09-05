@@ -14,6 +14,8 @@ def main():
     url = ''
     username = ""
     passwd = ""
+    groupdata_loc = ''
+    topicdata_loc = ''
 
     option = webdriver.ChromeOptions()
     option.add_argument('headless') # 设置option
@@ -32,8 +34,14 @@ def main():
     member = groupdata.number_of_Group_members(driver)
     topic = groupdata.number_of_Topics(driver)
 
+    last_member = int(TimeToSave.last_data(fileloc=groupdata_loc,n=4))
+    last_topic = int(TimeToSave.last_data(fileloc=groupdata_loc,n=2))
+    
     # 定时保存数据
-    TimeToSave.save_csv(topic=topic[:-2], member=member[:-1],fileolc='C://Users//pc//Desktop//Codes//Group//data.csv')
+    member_increase = member - last_member
+    topic_increase = topic - last_topic
+
+    TimeToSave.save_csv(data1=topic, data2=topic_increase,data3=member,data4=member_increase,fileolc=groupdata_loc)
 
     # 单话题阅读量跟踪
 
@@ -41,10 +49,10 @@ def main():
     driver.get(url)
 
     topic_read = onetopic.reading_data(driver)
-    last_read = int(TimeToSave.last_data(fileloc='C://Users//pc//Desktop//Codes//Group//onetopic.csv',n=2))
+    last_read = int(TimeToSave.last_data(fileloc=topicdata_loc,n=2))
     read_increase = topic_read - last_read
     
-    TimeToSave.save_csv(topic=topic_read,member=read_increase,fileolc='C://Users//pc//Desktop//Codes//Group//onetopic.csv')
+    TimeToSave.save_csv(data1=topic_read,data2=read_increase,fileolc=topicdata_loc)
 
     driver.quit()  
 
