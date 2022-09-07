@@ -12,11 +12,13 @@ def reading_data(driver):
         )
         #driver.refresh()
         num = driver.find_element(By.XPATH,"//*[@id='bbsTopicDetail']/div/div[2]/div[1]/p/span[5]").text
-        num = int(num[3:])
+        num = int(num[3:]) # System langue should be zh_CN
+        #num = int(num[7:]) # EN
         return num
         
     except:
-        return 'timeout'
+        print('Error: Fill to get topic reading_data')
+        return -999999
 
 
     

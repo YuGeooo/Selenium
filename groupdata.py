@@ -16,7 +16,8 @@ def number_of_Group_members(driver):
         num = int(num[:-1])
         return num
     except:
-        return 'timeout'
+        print('Error: Fill to get group_mumber_num data')
+        return -999999
 
 def number_of_Topics(driver):
     try:
@@ -28,4 +29,5 @@ def number_of_Topics(driver):
         num = int(num[:-2])
         return num
     except:
-        return 'timeout'
+        print('Error: Fill to get group_topic_num data')
+        return -999999
