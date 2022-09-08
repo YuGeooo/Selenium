@@ -1,13 +1,11 @@
-from cmath import nan
 import pandas as pd
 import math
-import numpy
 
+
+# 小组增长数据（两个新字段）
 loc = 'C://Users//pc//Desktop//Codes//Group//data_new.csv'
 
 reader = pd.read_csv(loc)
-
-
 
 for i in range(307):
     reader['Member'].loc[i+1] = reader['Topic_increase'].loc[i+1]

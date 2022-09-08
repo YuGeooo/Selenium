@@ -1,7 +1,7 @@
 from selenium import webdriver
 import time
 
-
+import info
 import login 
 import groupdata
 import TimeToSave
@@ -11,21 +11,25 @@ timeout = 10
 
 def main():
 
-    url = ''
-    username = ""
-    passwd = ""
-    groupdata_loc = ''
-    topicdata_loc = ''
+    group_url = info.url('group')
+    topic_url = info.url('topic')
+    username = info.user('username')
+    passwd = info.user('passwd')
+    groupdata_loc = info.save_loc('group')
+    topicdata_loc = info.save_loc('topic')
 
     option = webdriver.ChromeOptions()
     option.add_argument('headless') # 设置option
+    option.add_argument('--no-sandbox')
+    option.add_argument('--disable-dev-shm-usage')
     driver = webdriver.Chrome(chrome_options=option)  # 调用带参数的谷歌浏览器
 
     #driver = webdriver.Chrome()
     #driver.set_window_size(1280, 720)
 
     # get方法会一直等到页面被完全加载，然后才会继续程序，通常测试会在这里选择 time.sleep(2)
-    driver.get(url)  
+    driver.get(group_url)  
+    topicdata_loc = '/root/Desktop/Group/Data/onetopic.csv'
     
     # 登录
     login.login(driver,username,passwd)
@@ -45,8 +49,7 @@ def main():
 
     # 单话题阅读量跟踪
 
-    url = ''
-    driver.get(url)
+    driver.get(topic_url)
 
     topic_read = onetopic.reading_data(driver)
     last_read = int(TimeToSave.last_data(fileloc=topicdata_loc,n=2))
